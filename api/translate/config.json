@@ -1,0 +1,7 @@
+{
+  "name": "translate",
+  "description": "api translation",
+  "routes": {
+    "GET /translate": "translate"
+  }
+}

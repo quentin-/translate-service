@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var api = require('..');
+
+program
+  .option('-H, --host <host>', 'specify the host [0.0.0.0]', '0.0.0.0')
+  .option('-p, --port <port>', 'specify the port [4000]', '4000')
+  .option('-b, --backlog <size>', 'specify the backlog size [511]', '511')
+  .parse(process.argv);
+
+var app = api();
+
+app.listen(program.port, program.host, ~~program.backlog);
+console.log('Listening on %s:%s', program.host, program.port);

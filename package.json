@@ -1,0 +1,28 @@
+{
+  "name": "google-translate-service",
+  "version": "0.0.1",
+  "repository": "",
+  "description": "Google translate service",
+  "keywords": [
+    "google translate"
+  ],
+  "dependencies": {
+    "co-body": "0.0.1",
+    "commander": "~2.2.0",
+    "debug": "*",
+    "dotenv": "^2.0.0",
+    "google-translate": "^1.0.6",
+    "koa": "~0.6.1",
+    "koa-compress": "1.0.7",
+    "koa-logger": "~1.2.1",
+    "koa-resource-router": "^0.3.3",
+    "koa-router": "~3.1.4",
+    "rootpath": "^0.1.2"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "supertest": "~0.8.2"
+  },
+  "license": "MIT"
+}

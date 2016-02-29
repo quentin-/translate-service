@@ -11,6 +11,7 @@ const compress = require('koa-compress');
 const logger = require('koa-logger');
 const router = require('koa-router');
 const load = require('./lib/load');
+const cors = require('kcors');
 const koa = require('koa');
 
 module.exports = api;
@@ -21,6 +22,7 @@ function api(opts) {
 
   if ('test' != env) app.use(logger());
 
+  app.use(cors());
   app.use(services(opts.services));
   app.use(compress());
   app.use(router(app));

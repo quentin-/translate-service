@@ -12,6 +12,7 @@
     "debug": "*",
     "dotenv": "^2.0.0",
     "google-translate": "^1.0.6",
+    "kcors": "^1.0.1",
     "koa": "~0.6.1",
     "koa-compress": "1.0.7",
     "koa-logger": "~1.2.1",

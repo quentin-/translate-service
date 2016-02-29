@@ -5,8 +5,7 @@ exports.translate = function *() {
   const lang = this.request.query.lang;
 
   try {
-    result = yield this.services.translator.translate(body, lang);
-    this.body = result;
+    this.body = yield this.services.translator.translate(body, lang);
   } catch (e) {
     v1.error.call(this, 503);
   }

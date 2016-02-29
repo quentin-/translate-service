@@ -1,6 +1,6 @@
 module.exports = {
-  error: function(status) {
+  error(status) {
     this.response.status = status;
-    this.body = {error: 'an error occurred'};
-  }
-}
+    this.body = { error: 'an error occurred' };
+  },
+};

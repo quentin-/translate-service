@@ -1,5 +1,4 @@
-
-test:
+unit:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
 		--require should \
 		--reporter spec \
@@ -8,4 +7,7 @@ test:
 		api/*/test.js \
 		lib/*/*/test.js
 
-.PHONY: test
+lint:
+	node_modules/.bin/eslint api lib
+
+.PHONY: lint unit

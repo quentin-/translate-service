@@ -1,34 +1,57 @@
+'use strict';
+
 const request = require('supertest');
 const api = require('../..');
 
-const translatorServiceSuccess = {
-  translate() {
-    return new Promise(resolve => resolve({ body: 'hola' }));
-  },
-};
-
-const translatorServiceFailureMock = {
-  translate() {
-    return new Promise((resolve, reject) => reject(new Error()));
-  },
-};
-
 describe('GET /translate', () => {
-  it('should succeed when translation succeed', done => {
-    const app = api({ services: { translator: translatorServiceSuccess } });
+  let args;
+  let translator;
 
-    request(app.listen())
-    .get('/translate?lang=fr&body=hello')
-    .expect({ body: 'hola' })
-    .end(done);
+  describe('when service succeed', () => {
+    before(() => {
+      translator = {
+        translate(...rest) {
+          args = rest;
+          return new Promise(resolve => resolve({ body: 'hola' }));
+        },
+      };
+    });
+
+    it('should succeed', done => {
+      const app = api({ services: { translator } });
+
+      request(app.listen())
+      .get('/translate?lang=es&body=hello')
+      .expect({ body: 'hola' })
+      .end(() => {
+        args[0].should.equal('hello');
+        args[1].should.equal('es');
+        done();
+      });
+    });
   });
 
-  it('should fail when translation fails', done => {
-    const app = api({ services: { translator: translatorServiceFailureMock } });
+  describe('when service fails', () => {
+    before(() => {
+      translator = {
+        translate(...rest) {
+          args = rest;
+          return new Promise((resolve, reject) => reject(new Error()));
+        },
+      };
+    });
 
-    request(app.listen())
-    .get('/translate?lang=fr&body=hello')
-    .expect({ error: 'an error occurred' })
-    .end(done);
+    it('should fails', done => {
+      const app = api({ services: { translator } });
+
+      request(app.listen())
+      .get('/translate?lang=fr&body=hello')
+      .expect({ error: 'an error occurred' })
+      .end(() => {
+        args[0].should.equal('hello');
+        args[1].should.equal('fr');
+        done();
+      });
+    });
   });
 });
